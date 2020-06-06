@@ -4,7 +4,29 @@
   padding: 0 var(--page-horizontal-padding);
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .header h1 {
   color: #fff;
+}
+
+.site-title {
+  text-decoration: none;
+}
+
+.site-title > h1:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.site-login h2 {
+  color: #fff;
+  margin-top: 0;
+}
+
+.site-login {
+  text-decoration: none;
+}
+
+.site-login > h2:hover {
+  color: rgba(255, 255, 255, 0.8);
 }
