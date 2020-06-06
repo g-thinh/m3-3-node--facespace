@@ -18,9 +18,14 @@ const handleHomepage = (req, res) => {
 
 const handleProfilePage = (req, res) => {
   //console.log(req.params.id);
-  res.status(200).send(req.params.id);
+
+  //return the element containing user data, if the id matches with the request
+  let userPage = users.filter((user) => user._id === req.params.id)[0];
+  //console.log(userPage);
+
+  res.status(200).render("pages/profile", { user: userPage });
+  // res.status(200).send(req.params.id);
 };
-s;
 
 // -----------------------------------------------------
 // server endpoints
