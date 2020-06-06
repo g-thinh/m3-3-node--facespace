@@ -11,6 +11,12 @@
         <h1>Facespace</h1>
       </a>
       <a class="site-login" href="/signin">
-        <h2>Sign in</h2>
+        <h2>
+          <% if (isLoggedIn) { %>
+            Howdy, <%= currentUser.loggedInUser %>
+          <% } else { %>
+            Sign in
+          <% } %>
+        </h2>
       </a>
   </header>

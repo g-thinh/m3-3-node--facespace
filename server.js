@@ -13,7 +13,13 @@ const handleFourOhFour = (req, res) => {
 };
 
 const handleHomepage = (req, res) => {
-  res.status(200).render("pages/homepage", { users: users });
+  res
+    .status(200)
+    .render("pages/homepage", {
+      users: users,
+      currentUser: currentUser,
+      isLoggedIn: isLoggedIn,
+    });
 };
 
 const handleProfilePage = (req, res) => {
@@ -23,13 +29,21 @@ const handleProfilePage = (req, res) => {
   let userPage = users.find((user) => user._id === req.params.id);
   //console.log(userPage);
 
-  res.status(200).render("pages/profile", { user: userPage, users: users });
+  res.status(200).render("pages/profile", {
+    user: userPage,
+    users: users,
+    currentUser: currentUser,
+    isLoggedIn: isLoggedIn,
+  });
   // res.status(200).send(req.params.id);
 };
 
 //render the sign in page
 const handleSignin = (req, res) => {
-  res.status(200).render("pages/signin");
+  res.status(200).render("pages/signin", {
+    currentUser: currentUser,
+    isLoggedIn: isLoggedIn,
+  });
 };
 
 //redirect signin page to user, when logged in
@@ -48,6 +62,8 @@ const handleName = (req, res) => {
   //if the user inputs a valid name that exists in our data file then it will
   //sucessfully redirect user to that profile page
   if (loginName != undefined) {
+    currentUser["loggedInUser"] = `${loginName.name}`;
+    isLoggedIn = true;
     res.status(200).redirect(`/users/${loginName._id}`);
   } else {
     //if the input doesnt match anything on our data file, then it will re-render
@@ -56,6 +72,9 @@ const handleName = (req, res) => {
   }
 };
 
+// ------------------------------ SIGN IN STATUSES --------------------------
+
+let isLoggedIn = false;
 // -----------------------------------------------------
 // server endpoints
 express()
