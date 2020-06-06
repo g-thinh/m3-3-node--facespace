@@ -1,5 +1,21 @@
 <%- include('../partials/header') %>
 <div class="profile-page">
-  <%= user.name %>
+  <img src="<%= user.avatarUrl %>">
+  <h1> <%= user.name %> </h1>
+  <div>
+    <h3><%= user.name %>'s Friends</h3>
+    <ul>
+      <!-- loop over the array of friends -->
+      <!-- each friend's image and name should be visible. -->
+      <% user['friends'].forEach(friend => { %>
+        <% let friendData = users.find((user) => user._id === friend); %>
+        <li>
+          <img src="<%= friendData.avatarUrl %>" alt="<%= friendData.name %> Profile Pic"/>
+          <%- friendData.name %> 
+        </li>
+      <% }) %>
+    </ul>
+  </div>
 </div>
+
 <%- include('../partials/footer') %>
