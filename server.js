@@ -16,6 +16,12 @@ const handleHomepage = (req, res) => {
   res.status(200).render("pages/homepage", { users: users });
 };
 
+const handleProfilePage = (req, res) => {
+  //console.log(req.params.id);
+  res.status(200).send(req.params.id);
+};
+s;
+
 // -----------------------------------------------------
 // server endpoints
 express()
@@ -25,7 +31,12 @@ express()
   .set("view engine", "ejs")
 
   // endpoints
+
+  //go to homepage
   .get("/", handleHomepage)
+
+  //go to user page
+  .get("/users/:id", handleProfilePage)
 
   // a catchall endpoint that will send the 404 message.
   .get("*", handleFourOhFour)
