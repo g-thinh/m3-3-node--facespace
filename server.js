@@ -54,10 +54,26 @@ const handleProfilePage = (req, res) => {
 
 //render the sign in page
 const handleSignin = (req, res) => {
-  res.status(200).render("pages/signin", {
-    currentUser: currentUser,
-    isLoggedIn: isLoggedIn,
-  });
+  console.log(currentUser);
+
+  //check if the user is already logged in, if they are then it redirects
+  if (isLoggedIn) {
+    //res.status(200).redirect("/");
+
+    //decided to make it redirect to user's profile page instead
+    let userPage = users.find((user) => user.name === currentUser.loggedInUser);
+    res.status(200).render("pages/profile", {
+      user: userPage,
+      users: users,
+      currentUser: currentUser,
+      isLoggedIn: isLoggedIn,
+    });
+  } else {
+    res.status(200).render("pages/signin", {
+      currentUser: currentUser,
+      isLoggedIn: isLoggedIn,
+    });
+  }
 };
 
 //redirect signin page to user, when logged in
