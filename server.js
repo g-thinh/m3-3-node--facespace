@@ -13,13 +13,27 @@ const handleFourOhFour = (req, res) => {
 };
 
 const handleHomepage = (req, res) => {
-  res
-    .status(200)
-    .render("pages/homepage", {
-      users: users,
-      currentUser: currentUser,
-      isLoggedIn: isLoggedIn,
-    });
+  //console.log(currentUser.loggedInUser);
+
+  //create an empty array, if user is not logged-in then the data passed is
+  //empty
+  let friends = [];
+
+  //before rendering the homepage, check if a user is logged in
+  //and retrieve that user's lists of friends
+  if (isLoggedIn) {
+    friends = users.find((user) => user.name === currentUser.loggedInUser)
+      .friends;
+
+    console.log(friends);
+  }
+
+  res.status(200).render("pages/homepage", {
+    users: users,
+    currentUser: currentUser,
+    isLoggedIn: isLoggedIn,
+    friends: friends,
+  });
 };
 
 const handleProfilePage = (req, res) => {
@@ -74,6 +88,7 @@ const handleName = (req, res) => {
 
 // ------------------------------ SIGN IN STATUSES --------------------------
 
+//this triggers the logged in status, renders user name in the header.ejs file
 let isLoggedIn = false;
 // -----------------------------------------------------
 // server endpoints
